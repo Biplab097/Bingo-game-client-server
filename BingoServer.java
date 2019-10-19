@@ -1,19 +1,27 @@
 // echo server
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.Serializable;
 
 
-public class BingoServer {
+public class BingoServer{
 public static void main(String args[])throws IOException{
 
 
     Socket s=null;
     ServerSocket ss2=null;
+    BingoServer o = new BingoServer();
+    int i=0;
     System.out.println("Server Listening......");
+    @SuppressWarnings("unchecked") Map<Integer,String> tmap = new HashMap<Integer,String>();
+    //tmap.put(1,"ok");
+    //tmap.put(2,"ok2");
+    //System.out.println("see "+tmap); 
     try{
         ss2 = new ServerSocket(8555); // can also use static final PORT_NUM , when defined
         System.out.println("OK");
@@ -26,8 +34,9 @@ public static void main(String args[])throws IOException{
     while(true){
         try{
             s= ss2.accept();
-            System.out.println("connection Established");
-            ServerThread st=new ServerThread(s);
+            i++;
+            System.out.println("connection Established "+i);
+            ServerThread st=new ServerThread(s,i,tmap);
             st.start();
 
         }
@@ -50,9 +59,13 @@ class ServerThread extends Thread{
     BufferedReader  is = null;
     PrintWriter os=null;
     Socket s=null;
-
-    public ServerThread(Socket s){
+    int i=0;
+    @SuppressWarnings("unchecked") Map<Integer,String> tmap = null;
+    
+    public ServerThread(Socket s,int i,Map<Integer,String>  tmap){
         this.s=s;
+        this.i=i;
+        this.tmap=tmap;
     }
 
     public void run() {
@@ -69,8 +82,11 @@ class ServerThread extends Thread{
         while(line.compareTo("QUIT")!=0){
 
             os.println(line);
+            tmap.put(i,line);
+	    
             os.flush();
-            System.out.println("Response to Client  :  "+line);
+            System.out.println("Response to Client"+i+"  :  "+line);
+            System.out.println("collection of values :"+tmap.values());
             line=is.readLine();
         }   
     } catch (IOException e) {
