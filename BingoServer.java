@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 
 public class BingoServer{
+public static int count=0; public static String str=null;
 public static void main(String args[])throws IOException{
 
 
@@ -34,7 +35,7 @@ public static void main(String args[])throws IOException{
     while(true){
         try{
             s= ss2.accept();
-            i++;
+            i++;count++;
             System.out.println("connection Established "+i);
             ServerThread st=new ServerThread(s,i,tmap);
             st.start();
@@ -79,15 +80,30 @@ class ServerThread extends Thread{
 
     try {
         line=is.readLine();
+	if(i==1)tmap.put(2,line);
+	if(i==2)tmap.put(1,line);;
         while(line.compareTo("QUIT")!=0){
-
-            os.println(line);
-            tmap.put(i,line);
-	    
+	    if(i==1&&BingoServer.count>=2)
+            {	
+		os.println(tmap.get(2));tmap.replace(1,line);
+		//BingoServer.str = line;
+	    }
+	    //else {os.println("no client 2");tmap.put(1,line);}
+	     else//(i==2 && BingoServer.count >=2)
+	     {	
+		os.println(tmap.get(1));tmap.replace(2,line);
+		//BingoServer.str = line;
+	    }
+	    //else if(i==1 && j==1){os.println("no client 2");tmap.put(2,line);}
+	    //else if(i==2&& j==1){os.println(tmap.get(1));tmap.put(1,line);}
+	   // else {os.println("no client 1");tmap.put(2,line);}
+            
+	    System.out.println(BingoServer.count);
             os.flush();
             System.out.println("Response to Client"+i+"  :  "+line);
-            System.out.println("collection of values :"+tmap.values());
+            System.out.println("collection of values :"+tmap);
             line=is.readLine();
+	    
         }   
     } catch (IOException e) {
 
