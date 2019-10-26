@@ -33,19 +33,23 @@ public static void main(String args[]) throws IOException{
 
     String response=null;
     try{
-        line  = "pavan"; 
-        while(line.compareTo("QUIT")!=0){
+        line  = "pavan"; response = line;
+        response=is.readLine();
+                if(response!=null)
+                    System.out.println(response);response=is.readLine();
+                if(response!=null)
+                    System.out.println(response);response=is.readLine();
+        while(response.compareTo("QUIT")!=0){
                 
                 response=is.readLine();
-                if(response!=null)
+                if(response.compareTo(".")!=0){
                     System.out.println(response);
-                else 
-                    System.out.println("Server Response : "+response);
                 
                 
                 line=br.readLine();
-                //os.println(line);
-                //os.flush();
+                os.println(line);
+                os.flush();
+                }
             }
 
 
