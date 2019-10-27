@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ public class BingoClientFinal {
 public static void main(String args[]) throws IOException{
 
 
-    InetAddress address=InetAddress.getLocalHost();
+    InetAddress address=InetAddress.getByName(args[0]);
     Socket s1=null;
     String line=null;
     Scanner br = null,sr=null;

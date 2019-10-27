@@ -53,7 +53,7 @@ class Game {
                 e.printStackTrace();
             } finally {
                 if (opponent != null && opponent.output != null) {
-                    opponent.output.println("OTHER_PLAYER_LEFT");
+                    opponent.output.println("-1");
                 }
                 try {socket.close();} catch (IOException e) {}
             }
