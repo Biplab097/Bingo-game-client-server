@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -123,13 +124,24 @@ public static void main(String args[]) throws IOException{
         }
         while(true){
             response = is.readLine();
-            System.out.println(response);
+            System.out.println("Opponent move : "+response);
+            if(response.compareTo("-1")==0){
+                System.out.println("You lose");
+                os.close();
+                break;
+            }
             boolean check=findMatrix(Integer.parseInt(response),mat);
             if(check){
                 System.out.println(("Your updated table is:"));
                 win=winOrlose(mat);
                 if(win){
                     System.out.println("Congratulations You WON!!!");
+                    line = "-1";
+                    os.println(line);os.flush();
+                    try{os.close();}catch(Exception e){
+                        System.out.println("game over");
+                    }
+                    break;
                 }
                 for(int i=0;i<3;i++){
                     for(int j=0;j<3;j++){
@@ -174,7 +186,15 @@ public static void main(String args[]) throws IOException{
             }
             if(winOrlose(mat)){
                 System.out.println("Congratulations BINGO You WON!!!");
-
+                line = "-1";
+                os.println(line);os.flush();
+                try {
+                    os.close();
+                } catch (Exception e) {
+                    //TODO: handle exception
+                    System.out.println("game over bye bye");
+                }
+                break;
             }
             os.println(line);os.flush();
         }
