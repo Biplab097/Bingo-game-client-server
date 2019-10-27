@@ -11,6 +11,7 @@ public class BingoServerFinal{
     public static void main(String[] args) throws Exception {
         
         int n = 200, i=0;
+        
 
         try (var listener = new ServerSocket(58901)) {
             System.out.println("Bingo Server is Running...");
