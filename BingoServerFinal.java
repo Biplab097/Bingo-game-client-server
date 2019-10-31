@@ -81,7 +81,7 @@ class Game {
         }
         private void processCommands(){
             try {
-                System.out.println("here"+mark);
+                //System.out.println("here"+mark);
                 while (true) {
                     try{
                         var command = input.nextLine();
