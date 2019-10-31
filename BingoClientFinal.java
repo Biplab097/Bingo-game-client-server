@@ -93,7 +93,8 @@ public static void main(String args[]) throws IOException{
         System.out.println("Your input table is:");
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                System.out.print(mat[i][j]+" ");
+                if(mat[i][j]==-1)System.out.print("* ");
+                else System.out.print(mat[i][j]+" ");
             }
             System.out.println();
         }
@@ -108,7 +109,8 @@ public static void main(String args[]) throws IOException{
                 System.out.println("Output table after first round");
                 for(int i=0;i<3;i++){
                     for(int j=0;j<3;j++){
-                        System.out.print(mat[i][j]+" ");
+                        if(mat[i][j]==-1)System.out.print("* ");
+                        else System.out.print(mat[i][j]+" ");
                     }
                     System.out.println();
                 }
@@ -123,7 +125,8 @@ public static void main(String args[]) throws IOException{
                     System.out.println("Output table after first round");
                     for(int i=0;i<3;i++){
                         for(int j=0;j<3;j++){
-                            System.out.print(mat[i][j]+" ");
+                            if(mat[i][j]==-1)System.out.print("* ");
+                            else System.out.print(mat[i][j]+" ");
                         }
                         System.out.println();
                     }
@@ -155,7 +158,8 @@ public static void main(String args[]) throws IOException{
                 }
                 for(int i=0;i<3;i++){
                     for(int j=0;j<3;j++){
-                        System.out.print(mat[i][j]+" ");
+                        if(mat[i][j]== -1)System.out.print("* ");
+                        else System.out.print(mat[i][j]+" ");
                     }
                     System.out.println();
                 }
@@ -172,7 +176,8 @@ public static void main(String args[]) throws IOException{
 
                 for(int i=0;i<3;i++){
                     for(int j=0;j<3;j++){
-                        System.out.print(mat[i][j]+" ");
+                        if(mat[i][j]==-1)System.out.print("* ");
+                        else System.out.print(mat[i][j]+" ");
                     }
                     System.out.println();
                 }
@@ -187,7 +192,8 @@ public static void main(String args[]) throws IOException{
 
                     for(int i=0;i<3;i++){
                         for(int j=0;j<3;j++){
-                            System.out.print(mat[i][j]+" ");
+                            if(mat[i][j]==-1)System.out.print("* ");
+                            else System.out.print(mat[i][j]+" ");
                         }
                         System.out.println();
                     }
@@ -227,7 +233,7 @@ public static void main(String args[]) throws IOException{
 }
 
     private static boolean winOrlose(int[][] mat) {
-        int count=2,flag=0,val=0;
+        int count=3,flag=0,val=0;
         for (int i = 0; i < mat.length; i++) {
             val=0;
             for (int j = 0; j < mat.length; j++) {
@@ -236,9 +242,16 @@ public static void main(String args[]) throws IOException{
                     ++flag;
                 }
             }
+            val = 0;
+                for ( int j = 0; j < mat.length; j++) {
+                    val=val+mat[j][i];
+                    if(val==-3){
+                        ++flag;
+                    }
+                }
             
         }
-        if(flag==count){
+        if(flag>=count){
             return true;
         }
 
