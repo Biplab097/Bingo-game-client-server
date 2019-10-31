@@ -20,8 +20,10 @@ public class BingoServerFinal{
                 Game game = new Game();
                 sharemem.add(i);
                 sharemem.add(i+1);
+                try{
                 pool.execute(game.new Player(listener.accept(), 'f',sharemem, i));
                 pool.execute(game.new Player(listener.accept(), 's',sharemem, i));
+                }catch (Exception e){System.out.println("pool closed....");}
                 i = (i+2)%n;
             }
         }
@@ -66,7 +68,7 @@ class Game {
             output.println("WELCOME " + mark);
             if (mark == 'f') {
                 currentPlayer = this;
-                output.println("MESSAGE Waiting for opponent to connect");
+                output.println("MESSAGE: Waiting for opponent to connect");
                 sharemem.add(i, -1);
             } else {
                 opponent = currentPlayer;
@@ -81,13 +83,19 @@ class Game {
             try {
                 System.out.println("here"+mark);
                 while (true) {
-                    var command = input.nextLine();
-                    if (command.startsWith("-")) {
-                        return;
-                    } //else if (command.startsWith("MOVE")) {
-                    else{
-                        prmoco(Integer.parseInt(command));
+                    try{
+                        var command = input.nextLine();
+                        if (command.startsWith("-")) {
+                            return;
+                        } //else if (command.startsWith("MOVE")) {
+                        else{
+                            prmoco(Integer.parseInt(command));
+                        }
+                    }catch (Exception e){
+                        System.out.println("game closed...");
+                        break;
                     }
+                    
                 }
             } catch (Exception e) {
                 //TODO: handle exception

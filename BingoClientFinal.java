@@ -39,14 +39,21 @@ public static void main(String args[]) throws IOException{
     try{
         char mark;
         response = is.readLine();
-        System.out.println(response);
-        if(response.compareTo("WELCOME f")==0)mark ='f';
-        else mark = 's';
-        System.out.println(mark);
+        //System.out.println(response+"");
+        if(response.compareTo("WELCOME f")==0){
+            mark ='f';
+            System.out.println("Welcome Player 1");
+        }    
+        else{
+            mark = 's';
+            System.out.println("welcome player 2");
+        }    
+        //System.out.println(mark);
         response = is.readLine();
         System.out.println(response);
         response = is.readLine();
         System.out.println(response);
+        System.out.println();
         System.out.println("Fill in values 1 to 9 in random order");
         int[][] mat=new int[3][3];
         for(int i=0;i<3;i++){
@@ -54,6 +61,7 @@ public static void main(String args[]) throws IOException{
                 mat[i][j] = br.nextInt();
             }
         }
+
         //checking if user have given some illegal duplicate input by converting 2d matrix to 1d array
         List<Integer> flatArray = new ArrayList<Integer>();
         for (int[] row : mat) {
@@ -89,8 +97,10 @@ public static void main(String args[]) throws IOException{
             }
             System.out.println();
         }
+        System.out.println();
+        if(mark=='s')System.out.println("Wait for player1's move...");
         if(mark == 'f'){
-            System.out.println("You are first player start the game by choosing any number 1-9");
+            System.out.println("You are first player start the game by choosing any number 1-9.");
             line = sr.nextLine();
             boolean check0=findMatrix(Integer.parseInt(line),mat);
 
@@ -102,6 +112,7 @@ public static void main(String args[]) throws IOException{
                     }
                     System.out.println();
                 }
+                System.out.println("Wait for 2nd player's move....");
 
             }
             else{
@@ -157,7 +168,7 @@ public static void main(String args[]) throws IOException{
             boolean check1=findMatrix(Integer.parseInt(line),mat);
             //System.out.println(("coming here2"));
             if(check1){
-                System.out.println("working");
+                System.out.println("YOUR updated table is:");
 
                 for(int i=0;i<3;i++){
                     for(int j=0;j<3;j++){
@@ -172,7 +183,7 @@ public static void main(String args[]) throws IOException{
                 line = sr.nextLine();
                 boolean check2=findMatrix(Integer.parseInt(line),mat);
                 if(check2){
-                    System.out.println("working");
+                    System.out.println("YOUR updated table:");
 
                     for(int i=0;i<3;i++){
                         for(int j=0;j<3;j++){
@@ -180,6 +191,7 @@ public static void main(String args[]) throws IOException{
                         }
                         System.out.println();
                     }
+                    System.out.println("Please wait for opponent's move...");
 
                 }
             }
@@ -196,6 +208,7 @@ public static void main(String args[]) throws IOException{
                 break;
             }
             os.println(line);os.flush();
+            
         }
         
     }
